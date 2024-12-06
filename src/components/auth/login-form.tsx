@@ -5,14 +5,21 @@ import { Card, CardContent } from '../ui/card';
 import { Input } from '../ui/input';
 import CardHeader from './card-header';
 import PasswordInput from './password-input';
+import { register } from '@/app/api/auth/register';
 
 interface LoginFormProps {
   isLoginPage?: boolean;
 }
 
 const LoginForm = ({ isLoginPage }: LoginFormProps) => {
-  const [passwprd, setPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  const handleSubmit = async () => {
+    const data = await register();
+    console.log(data);
+  };
+
   return (
     <Card className='w-[350px]'>
       <CardHeader
@@ -32,8 +39,8 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <PasswordInput value={passwprd} onChange={(e) => setPassword(e)} />
-            <Button type='submit'>
+            <PasswordInput value={password} onChange={(e) => setPassword(e)} />
+            <Button type='submit' onSubmit={handleSubmit}>
               {isLoginPage ? 'Giriş Yap' : 'Kayıt Ol'}
             </Button>
           </div>
