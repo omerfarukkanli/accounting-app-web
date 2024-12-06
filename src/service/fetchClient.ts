@@ -1,10 +1,7 @@
-'use client';
+import { deleteToken, getToken } from '@/utils/getOrUpdateToken.utils';
 
-async function fetchClient(url: string, options: RequestInit = {}) {
-  const token = document.cookie
-    .split('; ')
-    .find((row) => row.startsWith('access_token='))
-    ?.split('=')[1];
+async function fetchClient(url: string, options: RequestInit) {
+  const token = await getToken();
   const baseURL = 'http://localhost:8081';
   const headers = new Headers(options.headers);
 
@@ -16,28 +13,24 @@ async function fetchClient(url: string, options: RequestInit = {}) {
 
   try {
     const fullUrl = baseURL ? `${baseURL}${url}` : url;
-
-    console.log(fullUrl);
     const response = await fetch(fullUrl, {
       ...options,
       headers,
       cache: options.cache || 'no-store',
     });
 
-    if (!response.ok) {
+    if (response.status == 401) {
       if (response.status === 401) {
-        document.cookie = 'access_token=; Max-Age=0; path=/';
-        window.location.href = '/auth/login';
-      }
+        deleteToken();
 
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Bir hata oluştu');
+        return response.json();
+      }
     }
 
-    return await response.json();
+    return response.json();
   } catch (error) {
     console.error('API Error:', error);
-    throw error;
+    return Promise.reject(error);
   }
 }
 

@@ -1,6 +1,7 @@
+import { getToken } from '@/utils/getOrUpdateToken.utils';
 import { NextRequest, NextResponse } from 'next/server';
 
-const authMiddleware = (req: NextRequest) => {
+const authMiddleware = async (req: NextRequest) => {
   const currentPath = req.nextUrl.pathname;
 
   const publicPaths = ['/auth/login', '/auth/register'];
@@ -14,7 +15,7 @@ const authMiddleware = (req: NextRequest) => {
     return NextResponse.next();
 
   const isPublicPath = publicPaths.includes(currentPath);
-  const token = req.cookies.get('token');
+  const token = await getToken();
 
   if (!isPublicPath && !token)
     return NextResponse.redirect(new URL('/auth/login', req.nextUrl));
