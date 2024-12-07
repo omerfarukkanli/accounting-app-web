@@ -8,6 +8,7 @@ import PasswordInput from './password-input';
 import { useToast } from '@/hooks/use-toast';
 import { register, login } from '@/service/auth';
 import { useRouter } from 'next/navigation';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface LoginFormProps {
   isLoginPage?: boolean;
@@ -19,7 +20,7 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
   const [email, setEmail] = useState('');
   const { toast } = useToast();
 
-  const handleClick = async (e: FormEvent) => {
+  const handleLoginOrRegisterClick = async (e: FormEvent) => {
     e.preventDefault();
 
     let title;
@@ -32,7 +33,7 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
       title = 'Hata';
       description = 'Lütfen tüm alanları doldurunuz';
       return toast({
-        variant: 'destructive',
+        className: 'bg-red-500 text-white',
         title: title,
         description: description,
         duration: 1000,
@@ -48,7 +49,9 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
       description = data.message;
 
       toast({
-        variant: data.success ? 'default' : 'destructive',
+        className: data.success
+          ? 'bg-green-500 text-white'
+          : 'bg-red-500 text-white',
         title: title,
         description: description,
         duration: 1000,
@@ -62,6 +65,14 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
     }
   };
 
+  const handleRouteChange = () => {
+    if (isLoginPage) {
+      router.push('/auth/register');
+    } else {
+      router.push('/auth/login');
+    }
+  };
+
   return (
     <Card className='w-[350px]'>
       <CardHeader
@@ -69,7 +80,7 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
         description={
           isLoginPage
             ? 'Giriş yapmak için email ve şifrenizi giriniz'
-            : 'Kayıt olmak için kullanıcı adı, email ve şifrenizi giriniz'
+            : 'Kayıt olmak için email ve şifrenizi giriniz'
         }
       />
       <CardContent>
@@ -82,9 +93,23 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <PasswordInput value={password} onChange={(e) => setPassword(e)} />
-            <Button onClick={handleClick}>
+
+            <Button onClick={handleLoginOrRegisterClick}>
               {isLoginPage ? 'Giriş Yap' : 'Kayıt Ol'}
             </Button>
+            <div className='flex flex-row justify-between'>
+              <label className='flex items-center'>
+                {isLoginPage
+                  ? 'Kayıtlı değil misiniz?'
+                  : 'Zaten hesabınız var mı?'}
+              </label>
+              <label
+                className='hover:underline cursor-pointer'
+                onClick={handleRouteChange}
+              >
+                {isLoginPage ? 'Kayıt Ol' : 'Giriş Yap'}
+              </label>
+            </div>
           </div>
         </form>
       </CardContent>

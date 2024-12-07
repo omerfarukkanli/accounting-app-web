@@ -21,7 +21,7 @@ const PasswordInput = ({ value, onChange }: PasswordInputProps) => {
       <div className='relative w-full'>
         <Input
           type={showPassword ? 'text' : 'password'}
-          placeholder='Şifrenizi girin'
+          placeholder='Şifre'
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className='pr-10'

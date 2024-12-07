@@ -1,16 +1,17 @@
-import type { Metadata } from 'next';
 import '../globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export default function AuthLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <>
-      {children}
-      <Toaster />
-    </>
+    <html>
+      <body>
+        {children}
+        <Toaster />
+      </body>
+    </html>
   );
 }
