@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   return (
-    <header className='header my-5 mx-5 flex justify-end'>
+    <header className='header my-2 mx-5 flex justify-end'>
       <Button onClick={handleLogout} variant='default'>
         Çıkış Yap
       </Button>

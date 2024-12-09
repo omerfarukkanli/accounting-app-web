@@ -1,8 +1,10 @@
+import { Bank } from '../bank.type.';
+
 export type SuccessResponseType = {
   success: boolean;
   statusCode: number;
   message: string;
-  data?: AuthResponse | any;
+  data?: AuthResponse | Bank | any;
   timestamp?: string;
 };
 

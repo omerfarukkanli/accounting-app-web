@@ -1,6 +1,6 @@
 import { saveToken } from '@/utils/getOrUpdateToken.utils';
 import fetchClient from '../fetchClient';
-import { User } from '../types/auth/userType';
+import { User } from '../types/userType';
 import { ErrorResponseType } from '../types/db/ErrorResponseType';
 import { SuccessResponseType } from '../types/db/SucceccResponseType';
 
