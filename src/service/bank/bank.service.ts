@@ -1,13 +1,14 @@
 import fetchClient from '../fetchClient';
 import { Bank } from '../types/bank.type.';
+import { CreateBank } from '../types/db/CreateBankType';
 import { ErrorResponseType } from '../types/db/ErrorResponseType';
 import { SuccessResponseType } from '../types/db/SucceccResponseType';
 
 export const createBank = async (
-  body: Bank
+  body: CreateBank
 ): Promise<ErrorResponseType | SuccessResponseType> => {
   const response: SuccessResponseType | ErrorResponseType = await fetchClient(
-    'bank',
+    '/bank',
     {
       method: 'POST',
       body: JSON.stringify(body),
@@ -22,7 +23,7 @@ export const getAllBanks = async (): Promise<
   ErrorResponseType | SuccessResponseType
 > => {
   const response: SuccessResponseType | ErrorResponseType = await fetchClient(
-    'bank',
+    '/bank',
     {
       method: 'GET',
     }
@@ -36,7 +37,7 @@ export const getBankById = async (
   id: string
 ): Promise<ErrorResponseType | SuccessResponseType> => {
   const response: SuccessResponseType | ErrorResponseType = await fetchClient(
-    `bank/${id}`,
+    `/bank/${id}`,
     {
       method: 'GET',
     }
@@ -50,7 +51,7 @@ export const deleteBank = async (
   id: string
 ): Promise<ErrorResponseType | SuccessResponseType> => {
   const response: SuccessResponseType | ErrorResponseType = await fetchClient(
-    `bank/${id}`,
+    `/bank/${id}`,
     {
       method: 'DELETE',
     }
@@ -65,7 +66,7 @@ export const updateBank = async (
   body: Bank
 ): Promise<ErrorResponseType | SuccessResponseType> => {
   const response: SuccessResponseType | ErrorResponseType = await fetchClient(
-    `bank/${id}`,
+    `/bank/${id}`,
     {
       body: JSON.stringify(body),
       method: 'PATCH',

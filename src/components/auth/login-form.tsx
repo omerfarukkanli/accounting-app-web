@@ -8,7 +8,6 @@ import PasswordInput from './password-input';
 import { useToast } from '@/hooks/use-toast';
 import { register, login } from '@/service/auth';
 import { useRouter } from 'next/navigation';
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface LoginFormProps {
   isLoginPage?: boolean;
@@ -28,7 +27,6 @@ const LoginForm = ({ isLoginPage }: LoginFormProps) => {
 
     const isValid = email.length === 0 && password.length === 0;
 
-    console.log('isValid:', isValid);
     if (isValid) {
       title = 'Hata';
       description = 'Lütfen tüm alanları doldurunuz';

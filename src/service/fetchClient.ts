@@ -1,30 +1,27 @@
 import { deleteToken, getToken } from '@/utils/getOrUpdateToken.utils';
 
+export const baseURL = 'http://localhost:8081';
+
 async function fetchClient(url: string, options: RequestInit) {
   const token = await getToken();
-  const baseURL = 'http://localhost:8081';
   const headers = new Headers(options.headers);
 
-  if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
+  if (token?.value) {
+    headers.set('Authorization', `Bearer ${token.value}`);
   }
-
   headers.set('Content-Type', 'application/json');
 
   try {
-    const fullUrl = baseURL ? `${baseURL}${url}` : url;
+    const fullUrl = baseURL + url;
     const response = await fetch(fullUrl, {
       ...options,
       headers,
       cache: options.cache || 'no-store',
     });
 
-    if (response.status == 401) {
-      if (response.status === 401) {
-        deleteToken();
-
-        return response.json();
-      }
+    if (response.status === 401) {
+      deleteToken();
+      return response.json();
     }
 
     return response.json();

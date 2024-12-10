@@ -12,9 +12,6 @@ export const login = async (
     {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     }
   );
   if (!response.success) {
@@ -32,9 +29,6 @@ export const register = async (
     {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     }
   );
   if (!response.success) {

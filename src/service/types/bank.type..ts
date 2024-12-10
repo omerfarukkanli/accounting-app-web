@@ -1,6 +1,7 @@
 export type Bank = {
+  _id: string;
   name: string;
-  totalDept: number;
+  totalDebt: number;
   balance: number;
   credits: Credit[];
 };
@@ -9,5 +10,5 @@ export type Credit = {
   totalInstallments: number;
   monthlyPayment: number;
   interestRate: number;
-  startDate: Date;
+  startDate: Date | undefined;
 };
