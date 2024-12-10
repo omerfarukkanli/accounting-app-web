@@ -25,16 +25,6 @@ export default function Home() {
     }
   }, []);
 
-  const handleBankCreate = (newBank: Partial<Bank>) => {
-    setBanks((prevBanks) => {
-      const bankWithId = {
-        ...newBank,
-        _id: `temp-${Date.now()}`,
-      } as Bank;
-      return prevBanks ? [bankWithId, ...prevBanks] : [bankWithId];
-    });
-  };
-
   useEffect(() => {
     fetchBanks();
   }, [fetchBanks]);
