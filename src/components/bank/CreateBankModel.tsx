@@ -7,7 +7,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { createBank } from '@/service/bank/bank.service';
-import { Bank } from '@/service/types/bank.type.';
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { CreateBank } from '@/service/types/db/CreateBankType';
